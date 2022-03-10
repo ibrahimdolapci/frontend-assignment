@@ -1,28 +1,27 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {RootState} from "../../app/store";
+import {IVesselPosition} from "../../app/types";
 
 type Maybe<T> = T | null;
 
-interface IVessel {
-
-}
-
 export interface VesselTracksState {
-    activeVessel: Maybe<IVessel>
+    selectedPosition: Maybe<IVesselPosition>
 }
 
 const initialState: VesselTracksState = {
-    activeVessel: null
+    selectedPosition: null
 };
 
 export const vesselTracksSlice = createSlice({
     name: 'vesselTracks',
     initialState,
     reducers: {
-        selectVessel: () => {
-
+        updatePosition: (state, action: PayloadAction<IVesselPosition>) => {
+            state.selectedPosition = action.payload
         },
     }
 });
 
-export const {selectVessel} = vesselTracksSlice.actions;
+export const {updatePosition} = vesselTracksSlice.actions;
+export const selectVesselTracks = (state: RootState) => state.vesselTracks
 export default vesselTracksSlice.reducer;
