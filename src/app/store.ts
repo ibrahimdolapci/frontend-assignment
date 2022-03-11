@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import vesselTracksReducer from '../features/vessel-track/slice';
+import vesselTracksReducer from '../modules/vessel-track/slice';
 import api from './api';
 
 export const store = configureStore({

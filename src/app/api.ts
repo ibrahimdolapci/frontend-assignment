@@ -3,7 +3,8 @@ import {IVesselPosition, IVesselPositionQueryArgs, IVesselPositionsQueryArgs} fr
 import {environments} from "./environments";
 
 const DEFAULT_CONFIG = {
-    protocol: 'jsono'
+    protocol: 'jsono',
+    msgtype: 'extended'
 }
 
 function generateQueryUrl(path: string, parameters: { [key: string]: string | number } = {}): string {
@@ -19,7 +20,7 @@ const api = createApi({
     endpoints: (build) => ({
         positions: build.query<IVesselPosition[], IVesselPositionsQueryArgs>({
             query: (args) => ({
-                url: generateQueryUrl(`exportvessels/v:8/${environments.apiKeyPS06}`, {...args, msgtype: 'extended'})
+                url: generateQueryUrl(`exportvessels/v:8/${environments.apiKeyPS06}`, {...args})
             })
         }),
         historicalPosition: build.query<IVesselPosition[], IVesselPositionQueryArgs>({
