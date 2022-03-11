@@ -2,15 +2,16 @@ import {useHistoricalPositionQuery} from "../../app/api";
 import {useParams} from "react-router-dom";
 import {Button, Layout, Space} from "antd";
 import {MapContainer, TileLayer, useMap} from "react-leaflet";
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import L from 'leaflet';
 import markerUrl from "../../assets/images/ship.png";
-import {LeftOutlined, RightOutlined} from "@ant-design/icons";
+import {LeftOutlined, PauseOutlined, PlayCircleOutlined, RightOutlined} from "@ant-design/icons";
 import {IVesselPosition} from "../../app/types";
 
 function Controls({positions}: { positions: IVesselPosition[] }) {
     const map = useMap();
     const [activeIndex, setActiveIndex] = useState(1);
+    const intervalId = useRef<NodeJS.Timeout>();
     const markers = useMemo(() => [...positions]
         .map((position) => {
             const icon = L.divIcon({
@@ -22,14 +23,14 @@ function Controls({positions}: { positions: IVesselPosition[] }) {
             });
 
             return L.marker([position.LAT, position.LON], {icon})
-        }), [positions])
+        }), [positions]);
+
+    const activeMarker = useMemo(() => markers[0], [markers]);
 
     useEffect(() => {
         const group = L.featureGroup(markers);
         map.fitBounds(group.getBounds());
     }, [map, markers]);
-
-    const activeMarker = useMemo(() => markers[0], [markers]);
 
     useEffect(() => {
         activeMarker.addTo(map);
@@ -40,23 +41,33 @@ function Controls({positions}: { positions: IVesselPosition[] }) {
     }, [map, activeMarker])
 
     useEffect(() => {
-        const newActiveMarker = markers[activeIndex];
-        activeMarker.setLatLng(newActiveMarker.getLatLng()).setIcon(newActiveMarker.getIcon());
-        newActiveMarker.addTo(map).setOpacity(0.2);
-    }, [activeIndex, markers, activeMarker]);
+        const newActiveMarker = markers[activeIndex].removeFrom(map).addTo(map).setOpacity(0.2);
+        activeMarker.setLatLng(newActiveMarker.getLatLng()).setIcon(newActiveMarker.getIcon()).setOpacity(1);
+    }, [activeIndex]);
 
     const goPrevious = useCallback(() => {
         setActiveIndex(activeIndex => (activeIndex === 0) ? markers.length - 1 : activeIndex - 1);
-    }, [activeMarker]);
+    }, [markers]);
 
     const goNext = useCallback(() => {
         setActiveIndex(activeIndex => (activeIndex + 1) % markers.length)
-    }, [activeMarker]);
+    }, [markers]);
+
+    const play = useCallback(() => {
+        intervalId.current = setInterval(goNext, 500);
+    }, [goNext]);
+
+    const stop = useCallback(() => {
+        if (intervalId.current)
+            clearInterval(intervalId.current)
+    }, []);
 
     return (
         <Space style={{position: 'fixed', top: 20, left: '50%', transform: 'translateX(-50%)', zIndex: 9999}}>
             <Button icon={<LeftOutlined/>} onClick={goPrevious}/>
             <Button icon={<RightOutlined/>} onClick={goNext}/>
+            <Button icon={<PlayCircleOutlined/>} onClick={play}/>
+            <Button icon={<PauseOutlined/>} onClick={stop}/>
         </Space>
     );
 }

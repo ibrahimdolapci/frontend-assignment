@@ -85,19 +85,24 @@ function VesselDetails() {
     const navigate = useNavigate();
 
     return (
-        <Layout.Sider width={0} collapsedWidth={300} collapsed={!!selectedPosition} theme="light" style={{padding: 20}}>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <Typography.Title level={5} style={{marginBottom: 0}}>{selectedPosition?.SHIPNAME}</Typography.Title>
-                <Button type="text" icon={<CloseOutlined/>} onClick={() => dispatch(updatePosition(null))}/>
+        <Layout.Sider width={0} collapsedWidth={300} collapsed={!!selectedPosition} theme="light">
+            <div style={{padding: 20}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <Typography.Title level={5}
+                                      style={{marginBottom: 0}}>{selectedPosition?.SHIPNAME}</Typography.Title>
+                    <Button type="text" icon={<CloseOutlined/>} onClick={() => dispatch(updatePosition(null))}/>
+                </div>
+                <Descriptions title="Position Details" column={1}>
+                    <Descriptions.Item label="Type">{selectedPosition?.TYPE_NAME}</Descriptions.Item>
+                    <Descriptions.Item label="Course">{selectedPosition?.COURSE}</Descriptions.Item>
+                    <Descriptions.Item label="Destination">{selectedPosition?.DESTINATION}</Descriptions.Item>
+                    <Descriptions.Item label="Width">{selectedPosition?.WIDTH} metres</Descriptions.Item>
+                    <Descriptions.Item label="Speed">{selectedPosition?.SPEED} knot</Descriptions.Item>
+                </Descriptions>
+                <Button type="primary" ghost
+                        onClick={() => selectedPosition?.SHIP_ID && navigate(selectedPosition?.SHIP_ID)}>Show Vessel
+                    Historical Positions</Button>
             </div>
-            <Descriptions title="Position Details" column={1}>
-                <Descriptions.Item label="Type">{selectedPosition?.TYPE_NAME}</Descriptions.Item>
-                <Descriptions.Item label="Course">{selectedPosition?.COURSE}</Descriptions.Item>
-                <Descriptions.Item label="Destination">{selectedPosition?.DESTINATION}</Descriptions.Item>
-                <Descriptions.Item label="Width">{selectedPosition?.WIDTH}</Descriptions.Item>
-                <Descriptions.Item label="Speed">{selectedPosition?.SPEED}</Descriptions.Item>
-            </Descriptions>
-            <Button type="primary" ghost onClick={() => selectedPosition?.SHIP_ID && navigate(selectedPosition?.SHIP_ID)}>Show Vessel Historical Positions</Button>
         </Layout.Sider>
     )
 }
