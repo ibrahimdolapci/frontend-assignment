@@ -2,3 +2,7 @@
     background-color: transparent !important;
     z-index: 999;
 }
+
+.ship-marker {
+    transition: all 500ms ease-in-out;
+}

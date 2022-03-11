@@ -22,7 +22,7 @@ const api = createApi({
                 url: generateQueryUrl(`exportvessels/v:8/${environments.apiKeyPS06}`, {...args, msgtype: 'extended'})
             })
         }),
-        position: build.query<IVesselPosition, IVesselPositionQueryArgs>({
+        historicalPosition: build.query<IVesselPosition[], IVesselPositionQueryArgs>({
             query: (args) => ({
                 url: generateQueryUrl(`exportvesseltrack/v:3/${environments.apiKeyPS01}`, {...args})
             }),
@@ -32,7 +32,7 @@ const api = createApi({
 
 export const {
     useLazyPositionsQuery,
-    useLazyPositionQuery,
+    useHistoricalPositionQuery,
 } = api;
 
 export default api;

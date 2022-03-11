@@ -5,7 +5,7 @@ import {IVesselPosition} from "../../app/types";
 type Maybe<T> = T | null;
 
 export interface VesselTracksState {
-    selectedPosition: Maybe<IVesselPosition>
+    selectedPosition: Maybe<IVesselPosition>,
 }
 
 const initialState: VesselTracksState = {
@@ -16,7 +16,7 @@ export const vesselTracksSlice = createSlice({
     name: 'vesselTracks',
     initialState,
     reducers: {
-        updatePosition: (state, action: PayloadAction<IVesselPosition>) => {
+        updatePosition: (state, action: PayloadAction<Maybe<IVesselPosition>>) => {
             state.selectedPosition = action.payload
         },
     }
