@@ -12,10 +12,9 @@ export function VesselDetails() {
 
     return (
         <Layout.Sider width={0} collapsedWidth={300} collapsed={!!selectedPosition} theme="light">
-            <div style={{padding: 20}}>
-                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                    <Typography.Title level={5}
-                                      style={{marginBottom: 0}}>{selectedPosition?.SHIPNAME}</Typography.Title>
+            <div className="p-5">
+                <div className="flex justify-between align-center">
+                    <Typography.Title level={5} className="mb-0">{selectedPosition?.SHIPNAME}</Typography.Title>
                     <Button type="text" icon={<CloseOutlined/>} onClick={() => dispatch(updatePosition(null))}/>
                 </div>
                 <Descriptions title="Position Details" column={1}>

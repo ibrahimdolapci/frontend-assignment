@@ -22,7 +22,7 @@ export default function VesselHistoricalPositionControls({
     }, []);
 
     return (
-        <Space style={{position: 'fixed', top: 20, left: '50%', transform: 'translateX(-50%)', zIndex: 9999}}>
+        <Space className="fixed top-5 left-1/2 -translate-x-1/2 z-999">
             <Button icon={<LeftOutlined/>} onClick={onGoPrevious}/>
             <Button icon={<RightOutlined/>} onClick={onGoNext}/>
             <Button icon={<PlayCircleOutlined/>} onClick={play}/>

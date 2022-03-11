@@ -8,7 +8,7 @@ export default function VesselsPositionList() {
     return (
         <Layout>
             <Layout.Content>
-                <MapContainer center={[38.568100, -74.719560]} zoom={12} style={{height: "100vh", width: '100%'}}>
+                <MapContainer center={[38.568100, -74.719560]} zoom={12} className="h-screen w-full">
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
