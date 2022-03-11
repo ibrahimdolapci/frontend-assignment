@@ -1,8 +1,8 @@
 .ReactModal__Overlay {
-    background-color: transparent !important;
-    z-index: 10;
+  background-color: transparent !important;
+  z-index: 10;
 }
 
 .ship-marker {
-    transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
 }
