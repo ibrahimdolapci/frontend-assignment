@@ -1,6 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+
 ## Marine Traffic Frontend Assignments
+
+[Live Demo](https://frontend-assignment-one.vercel.app)
+
 ### Used Technologies
+
 - [RTK Query](https://redux-toolkit.js.org/rtk-query/overview)
 - [Redux](https://react-redux.js.org)
 - [Leaflet](https://leafletjs.com)
